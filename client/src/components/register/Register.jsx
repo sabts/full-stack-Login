@@ -9,13 +9,28 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	return (
-		<form>
+		<form onSubmit={registerUser}>
 			<h2>Crear Cuenta</h2>
+			<input type='text' name='name' placeholder='Name' />
 			<input type='text' name='email' placeholder='email' />
 			<input ttype='password' name='password' placeholder='password' />
 			<button type='submit'>Registrarse</button>
 		</form>
 	);
+};
+
+const registerUser = async event => {
+	event.preventDefault();
+	const formData = event.target;
+	const userName = formData.name.value;
+	const email = formData.email.value;
+	const password = formData.password.value;
+	try {
+		await createUserWithEmailAndPassword(auth, name, email, password);
+		//navigate('/chat');
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export default Register;
