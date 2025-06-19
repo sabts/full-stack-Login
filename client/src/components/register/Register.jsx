@@ -2,18 +2,15 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useContext } from 'react';
 import { auth } from '../../lib/config/firebase.config';
 import { AuthContext } from '../../lib/context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 	const {} = useContext(AuthContext);
-	//const navigate = useNavigate();
-
 	return (
 		<form onSubmit={registerUser}>
 			<h2>Crear Cuenta</h2>
 			<input type='text' name='name' placeholder='Name' />
 			<input type='text' name='email' placeholder='email' />
-			<input ttype='password' name='password' placeholder='password' />
+			<input type='password' name='password' placeholder='password' />
 			<button type='submit'>Registrarse</button>
 		</form>
 	);
@@ -26,8 +23,7 @@ const registerUser = async event => {
 	const email = formData.email.value;
 	const password = formData.password.value;
 	try {
-		await createUserWithEmailAndPassword(auth, name, email, password);
-		//navigate('/chat');
+		await createUserWithEmailAndPassword(auth, email, password);
 	} catch (error) {
 		console.log(error);
 	}
