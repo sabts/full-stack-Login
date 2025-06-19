@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-	const navigate = useNavigate();
+	//const navigate = useNavigate();
 
 	return (
 		<form onSubmit={event => loginUser(event, navigate)}>
@@ -21,7 +21,7 @@ const loginUser = async (event, navigate) => {
 
 	try {
 		await signInWithEmailAndPassword(auth, email, password);
-		navigate('/chat');
+		//navigate('/chat');
 	} catch (error) {
 		console.log(error);
 	}

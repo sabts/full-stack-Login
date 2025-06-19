@@ -1,13 +1,12 @@
+import Login from '../../components/login/Login';
 import Register from '../../components/register/Register';
 
 const Home = () => {
-	return (
-		<>
+	return (<>
 			<h1>Bienvenido "name"</h1>
-			<span>registro</span>
-			<Register />
-			<span>Login</span>
+			<Register/>
+			<Login/>
 		</>
-	);
+	)
 };
 export default Home;
