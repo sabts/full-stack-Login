@@ -1,13 +1,19 @@
+import { useContext } from "react";
+import { AuthContext } from "../../lib/context/AuthContext";
+
 const Profile = () => {
+	const { user } = useContext(AuthContext)
 	return (
 		<>
-			<div>es un img pero eso aun no existe</div>
-			<h2>User Name</h2>
-			<div>
-				<strong>email:</strong>
-				<span>email@gmail.com</span>
-			</div>
-			<button>Edit</button>
+		<div>
+			circulo de referencia de imagen
+		</div>
+		 <div>
+      <h2>Perfil de {user?.name}</h2>
+      <p>Email: {user?.email}</p>
+    </div>
+	<button>edit profile</button>
+	<button>sign out</button>
 		</>
 	);
 };

@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useContext } from 'react';
 import { auth } from '../../lib/config/firebase.config';
 import { AuthContext } from '../../lib/context/AuthContext';
@@ -22,8 +22,13 @@ const registerUser = async event => {
 	const userName = formData.name.value;
 	const email = formData.email.value;
 	const password = formData.password.value;
+
 	try {
-		await createUserWithEmailAndPassword(auth, email, password);
+		const userRegistrationData = await createUserWithEmailAndPassword(auth, email, password);
+
+	await updateProfile(userRegistrationData, {
+        name: userName,
+      });
 	} catch (error) {
 		console.log(error);
 	}
