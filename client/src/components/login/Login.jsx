@@ -1,15 +1,26 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../../lib/config/firebase.config';
+import { useContext } from 'react';
+import { AuthContext } from '../../lib/context/AuthContext';
 
 const Login = () => {
-	//const navigate = useNavigate();
-
+	const { user } = useContext(AuthContext);
+	const navigate = useNavigate();
+	if (user) return navigate('/');
 	return (
-		<form onSubmit={event => loginUser(event, navigate)}>
-			<h2>Iniciar Sesión</h2>
-			<input type='text' name='email' placeholder='Email' />
-			<input type='password' name='password' placeholder='Password' />
-			<button>Entrar</button>
-		</form>
+		<>
+			{!user && (
+				<>
+					<form onSubmit={event => loginUser(event, navigate)}>
+						<h2>Iniciar Sesión</h2>
+						<input type='text' name='email' placeholder='Email' />
+						<input type='password' name='password' placeholder='Password' />
+						<button>Entrar</button>
+					</form>
+				</>
+			)}
+		</>
 	);
 };
 
@@ -21,7 +32,6 @@ const loginUser = async (event, navigate) => {
 
 	try {
 		await signInWithEmailAndPassword(auth, email, password);
-		//navigate('/chat');
 	} catch (error) {
 		console.log(error);
 	}

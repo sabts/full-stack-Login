@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { getDataById, updateDataById } from "../../lib/utils/api";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getDataById, updateDataById } from '../../lib/utils/api';
 
 const Profile = () => {
-    const { id } = useParams();
+	const { id } = useParams();
 	const [user, setUser] = useState([]);
 	const [isEditing, setIsEditing] = useState(false);
 	const navigate = useNavigate();
@@ -16,36 +16,47 @@ const Profile = () => {
 		return <h2>No User</h2>;
 	}
 
-	const {
-		email,
-		userName,
-	} = user;
+	const { email, userName } = user;
 
-    return <>
-    <Link to='/'>
+	return (
+		<>
+			<Link to='/'>
 				<button>back to users</button>
 			</Link>
-            <div>
+			<div>
 				{!isEditing ? (
 					<>
-				<div>foto</div>
+						<div>foto</div>
 						<h2>{user.userName}</h2>
 						<span>{user.email}</span>
 						<div>
-							<button onClick={() => setIsEditing(true)}>EDITAR</button>
+							<button onClick={() => setIsEditing(true)}>Edit</button>
+							<button onClick={() => logout(navigate)}>Log Out</button>
 						</div>
 					</>
 				) : (
 					<>
-						<form onSubmit={event => updateUser(id, event, setUser, setIsEditing)}>
+						<form
+							onSubmit={event => updateUser(id, event, setUser, setIsEditing)}
+						>
 							<div>foto</div>
 							<div>
 								<label htmlFor='userName'>Nombre</label>
-								<input type='text' id='fullName' name='userName' defaultValue={user.userName} />
+								<input
+									type='text'
+									id='fullName'
+									name='userName'
+									defaultValue={user.userName}
+								/>
 							</div>
 							<div>
 								<label htmlFor='email'>Email</label>
-								<input type='email' id='email' name='email' defaultValue={user.email} />
+								<input
+									type='email'
+									id='email'
+									name='email'
+									defaultValue={user.email}
+								/>
 							</div>
 							<input type='submit' value='GUARDAR CAMBIOS' />
 						</form>
@@ -54,6 +65,7 @@ const Profile = () => {
 				)}
 			</div>
 		</>
+	);
 };
 
 const getDataUser = async (setUser, id) => {
@@ -66,12 +78,17 @@ const updateUser = async (id, event, setUser, setIsEditing) => {
 	const form = event.target;
 
 	const body = {
-		userlName: form.userName.value,
-		email: form.email.value,
+		userName: form.userName.value,
+		email: form.email.value
 	};
 
 	const userUpdated = await updateDataById(id, body);
 	setUser(userUpdated);
 	setIsEditing(false);
 };
-export default Profile
+
+const logout = async navigate => {
+	await signOut(auth);
+	navigate('/');
+};
+export default Profile;

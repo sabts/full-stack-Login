@@ -1,27 +1,28 @@
 import { useContext } from 'react';
-import Login from '../../components/login/Login';
-import Register from '../../components/register/Register';
 import { AuthContext } from '../../lib/context/AuthContext';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../lib/config/firebase.config';
 
 const Home = () => {
 	const { user } = useContext(AuthContext);
-	return (<>
-			     <div>
-      {user ? (
+	const navigate = useNavigate();
+	return (
 		<>
-        <h1>Bienvenido, {user.name}</h1>
-		<Link to={`/${user.uid}`}>
-		<button>Ir a mi perfil</button>
-		</Link>
+			<div>
+				{!user && (
+					<>
+						<h1>Bienvenide</h1>
+					</>
+				)}
+				{user && (
+					<>
+						<h1>Bienvenido, {user.name}</h1>
+					</>
+				)}
+			</div>
 		</>
-      ) : (
-        <h1>Bienvenido</h1>
-      )}
-    </div>
-			<Register/>
-			<Login/>
-		</>
-	)
+	);
 };
+
 export default Home;
