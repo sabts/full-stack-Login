@@ -51,15 +51,6 @@ const Profile = () => {
 									defaultValue={user.userName}
 								/>
 							</div>
-							<div>
-								<label htmlFor='email'>Email</label>
-								<input
-									type='email'
-									id='email'
-									name='email'
-									defaultValue={user.email}
-								/>
-							</div>
 							<input type='submit' value='GUARDAR CAMBIOS' />
 						</form>
 						<button onClick={() => setIsEditing(false)}>CANCELAR</button>
@@ -80,8 +71,7 @@ const updateUser = async (id, event, setUser, setIsEditing) => {
 	const form = event.target;
 
 	const body = {
-		userName: form.userName.value,
-		email: form.email.value
+		userName: form.userName.value
 	};
 
 	const userUpdated = await updateDataById(id, body);

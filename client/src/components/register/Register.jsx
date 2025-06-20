@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { auth } from '../../lib/config/firebase.config';
 import { AuthContext } from '../../lib/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { saveUserData } from '../../lib/utils/api';
 
 const Register = () => {
 	const { user } = useContext(AuthContext);
@@ -33,18 +34,15 @@ const registerUser = async event => {
 	const password = formData.password.value;
 
 	try {
-		const userRegistrationData = await createUserWithEmailAndPassword(
-			auth,
-			email,
-			password
-		);
-
-		await updateProfile(userRegistrationData, {
-			name: userName
-		});
+		await createUserWithEmailAndPassword(auth, email, password);
+		//Informacion que va a Mongo
+		const userData = await saveUserData(uid, email, userName);
 	} catch (error) {
 		console.log(error);
 	}
 };
+
+// ReferenceError: uid is not defined
+//     at registerUser (Register.jsx:39:39)
 
 export default Register;

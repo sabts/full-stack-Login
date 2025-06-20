@@ -1,12 +1,12 @@
 const URL_BASE = 'http://localhost:3000';
 const URL_API = '/api/users/';
 
-export const registerUser = async (email, password, name) => {
-	await fetch(URL_BASE + URL_API + id),
+export const saveUserData = async (uid, email, name) => {
+	await fetch(URL_BASE + URL_API),
 		{
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ uid: user.uid, email, name, password })
+			body: JSON.stringify({ uid, email, name })
 		};
 };
 
