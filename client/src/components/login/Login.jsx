@@ -7,7 +7,6 @@ import { AuthContext } from '../../lib/context/AuthContext';
 const Login = () => {
 	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
-	if (user) return navigate('/');
 	return (
 		<>
 			{!user && (

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDataById, updateDataById } from '../../lib/utils/api';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../lib/config/firebase.config';
 
 const Profile = () => {
 	const { id } = useParams();

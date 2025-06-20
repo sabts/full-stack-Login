@@ -40,26 +40,10 @@ usersController.updateUser = async (req, res) => {
 
   try {
     await UserModel.updateOne({ _id: id }, { $set: { ...req.body } });
-    //aqui le pedimos que busque el id que coincide con el _id y de ahi hacemos un set de los cambios
     const allUser = await UserModel.find();
     res.status(200).send(allUser);
-    // const userFound = await UserModel.findById(id);
-    // if (!userFound) {
-    //   res.status(404).send({ message: "User not found" });
-    // }
   } catch (error) {
     res.status(404).send({ message: "Error uptdating user" + error });
-  }
-};
-
-usersController.deleteUser = async (req, res) => {
-  const { id } = req.params;
-  try {
-    await UserModel.deleteOne({ _id: id });
-    const allUser = await UserModel.find();
-    res.status(200).send(allUser);
-  } catch (error) {
-    res.status(500).send({ message: "Error deleting user" + error });
   }
 };
 

@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from '../../pages/home/Home';
 import Profile from '../../pages/profile/Profile';
-import Login from '../../components/login/Login';
-import Register from '../../components/register/Register';
 import Layout from '../layout/Layout';
+import LoginPage from '../../pages/login/LoginPage';
+import RegisterPage from '../../pages/register/RegisterPage';
 
 const Router = () => {
 	return (
@@ -11,8 +11,8 @@ const Router = () => {
 			<Routes>
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Home />} />
-					<Route path='login' element={<Login />} />
-					<Route path='register' element={<Register />} />
+					<Route path='login' element={<LoginPage />} />
+					<Route path='register' element={<RegisterPage />} />
 					<Route path='/:id' element={<Profile />} />
 				</Route>
 			</Routes>
