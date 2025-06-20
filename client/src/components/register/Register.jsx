@@ -36,20 +36,13 @@ const registerUser = async event => {
 	const password = formData.password.value;
 
 	try {
-		await createUserWithEmailAndPassword(auth, email, password);
-		//Informacion que va a MongoDB
-		//const saveNewUser = await saveUserData()
-		// body = {
-		// 	uid: user.uid,
-		// 	email: email,
-		// 	name: userName
-		// }
+		const userRegisterData = await createUserWithEmailAndPassword(auth, email, password);
+		const user = userRegisterData.user;
+		
+		await saveUserData(user.uid, email, userName);
+		console.log('Usuario guardado en Firebase y MongoDB');
 	} catch (error) {
-		console.log(error);
+		console.log('Error en el registro:', error);
 	}
 };
-
-// ReferenceError: uid is not defined
-//     at registerUser (Register.jsx:39:39)
-
 export default Register;
