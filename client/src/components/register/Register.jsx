@@ -38,7 +38,7 @@ const registerUser = async event => {
 	try {
 		await createUserWithEmailAndPassword(auth, email, password);
 		//Informacion que va a MongoDB
-		//await saveUserData()
+		//const saveNewUser = await saveUserData()
 		// body = {
 		// 	uid: user.uid,
 		// 	email: email,
