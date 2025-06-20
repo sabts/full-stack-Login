@@ -17,6 +17,8 @@ const Login = () => {
 						<input type='password' name='password' placeholder='Password' />
 						<button>Entrar</button>
 					</form>
+					<button>Conectarse con Google</button>
+					<button>Conectarse con GitHub</button>
 				</>
 			)}
 		</>

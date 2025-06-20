@@ -20,6 +20,8 @@ const Register = () => {
 						<input type='password' name='password' placeholder='password' />
 						<button type='submit'>Registrarse</button>
 					</form>
+					<button>Conectarse con Google</button>
+					<button>Conectarse con GitHub</button>
 				</>
 			)}
 		</>
@@ -35,8 +37,13 @@ const registerUser = async event => {
 
 	try {
 		await createUserWithEmailAndPassword(auth, email, password);
-		//Informacion que va a Mongo
-		const userData = await saveUserData(uid, email, userName);
+		//Informacion que va a MongoDB
+		//await saveUserData()
+		// body = {
+		// 	uid: user.uid,
+		// 	email: email,
+		// 	name: userName
+		// }
 	} catch (error) {
 		console.log(error);
 	}
