@@ -3,6 +3,7 @@ import { AuthContext } from "../../lib/context/AuthContext";
 
 const Profile = () => {
 	const { user } = useContext(AuthContext)
+	console (user)
 	return (
 		<>
 		<div>

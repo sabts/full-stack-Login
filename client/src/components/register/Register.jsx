@@ -2,12 +2,10 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useContext } from 'react';
 import { auth } from '../../lib/config/firebase.config';
 import { AuthContext } from '../../lib/context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { saveUserData } from '../../lib/utils/api';
 
 const Register = () => {
 	const { user } = useContext(AuthContext);
-	const navigate = useNavigate();
 
 	return (
 		<>
@@ -38,7 +36,7 @@ const registerUser = async event => {
 	try {
 		const userRegisterData = await createUserWithEmailAndPassword(auth, email, password);
 		const user = userRegisterData.user;
-		
+
 		await saveUserData(user.uid, email, userName);
 		console.log('Usuario guardado en Firebase y MongoDB');
 	} catch (error) {

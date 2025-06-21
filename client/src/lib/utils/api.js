@@ -34,6 +34,7 @@ export const getDataById = async id => {
 		console.log(error);
 	}
 };
+
 export const updateDataById = async (id, body) => {
 	try {
 		const response = await fetch(URL_BASE + URL_API + id, {

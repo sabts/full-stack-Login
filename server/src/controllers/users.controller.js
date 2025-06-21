@@ -13,7 +13,7 @@ usersController.getAllUsers = async (req, res) => {
 usersController.getUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const userFound = await UserModel.findById(id);
+    userFound = await UserModel.findOne({ uid: id });
 
     if (!userFound) {
       res.status(404).send({ message: "User not found" });

@@ -29,4 +29,9 @@ const AuthProvider = ({ children }) => {
 	);
 };
 
+const getUserInMongoDB = async(setUser) => {
+	
+}
+
+
 export default AuthProvider;
