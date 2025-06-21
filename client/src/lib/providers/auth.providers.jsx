@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { auth } from '../config/firebase.config';
+import { getDataById } from '../utils/api';
 
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
@@ -8,7 +9,8 @@ const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
 			if (user) {
-				setUser(user);
+				//console.log('_ID DE moNGO:', user.uid);
+				getUserInMongoDB(user.uid, setUser);
 			} else {
 				setUser(null);
 			}
@@ -23,15 +25,16 @@ const AuthProvider = ({ children }) => {
 				user,
 				setUser
 			}}
-		>
+		> 
 			{children}
 		</AuthContext.Provider>
 	);
 };
 
-const getUserInMongoDB = async(setUser) => {
-	
+const getUserInMongoDB = async (uid, setUser) => {
+const user = await getDataById(uid);
+console.log("User desde MongoDB:", user)
+setUser(user)
 }
-
 
 export default AuthProvider;
