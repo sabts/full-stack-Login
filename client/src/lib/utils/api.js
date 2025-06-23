@@ -21,9 +21,9 @@ export const saveUserData = async (uid, email, name) => {
 	}
 };
 
-export const getDataById = async id => {
+export const getDataById = async uid => {
 	try {
-		const response = await fetch(URL_BASE + URL_API + id);
+		const response = await fetch(URL_BASE + URL_API + uid);
 		if (response.ok) {
 			const data = await response.json();
 			return data;

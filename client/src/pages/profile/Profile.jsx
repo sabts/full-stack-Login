@@ -1,18 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getDataById, updateDataById } from '../../lib/utils/api';
+import { updateDataById } from '../../lib/utils/api';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../lib/config/firebase.config';
+import { AuthContext } from '../../lib/context/AuthContext';
 
 const Profile = () => {
-	const { id } = useParams();
-	const [user, setUser] = useState([]);
+	const { user, setUser } = useContext(AuthContext);
 	const [isEditing, setIsEditing] = useState(false);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		getDataUser(setUser, id);
-	}, [id]);
 
 	if (!user) {
 		return <h2>No User</h2>;
@@ -29,7 +25,7 @@ const Profile = () => {
 				{!isEditing ? (
 					<>
 						<div>foto</div>
-						<h2>{user.userName}</h2>
+						<h2>{user.name}</h2>
 						<span>{user.email}</span>
 						<div>
 							<button onClick={() => setIsEditing(true)}>Edit</button>
@@ -39,16 +35,16 @@ const Profile = () => {
 				) : (
 					<>
 						<form
-							onSubmit={event => updateUser(id, event, setUser, setIsEditing)}
+							onSubmit={event => updateUser(uid, event, setUser, setIsEditing)}
 						>
 							<div>foto</div>
 							<div>
-								<label htmlFor='userName'>Nombre</label>
+								<label htmlFor='name'>Nombre</label>
 								<input
 									type='text'
-									id='fullName'
+									id='name'
 									name='userName'
-									defaultValue={user.userName}
+									defaultValue={user.name}
 								/>
 							</div>
 							<input type='submit' value='GUARDAR CAMBIOS' />
@@ -61,17 +57,12 @@ const Profile = () => {
 	);
 };
 
-const getDataUser = async (setUser, id) => {
-	const user = await getDataById(id);
-	setUser(user);
-};
-
 const updateUser = async (id, event, setUser, setIsEditing) => {
 	event.preventDefault();
 	const form = event.target;
 
 	const body = {
-		userName: form.userName.value
+		name: form.userName.value
 	};
 
 	const userUpdated = await updateDataById(id, body);

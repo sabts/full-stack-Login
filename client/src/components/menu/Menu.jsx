@@ -28,7 +28,7 @@ const Menu = () => {
 				<nav>
 					<ul>
 						<li>
-							<Link to={`/${user.uid}`}>Profile</Link>
+							<Link to="/profile">Profile</Link>
 						</li>
 					</ul>
 				</nav>

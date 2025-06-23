@@ -25,7 +25,7 @@ const Login = () => {
 	);
 };
 
-const loginUser = async (event, navigate) => {
+const loginUser = async (event) => {
 	event.preventDefault();
 	const formData = event.target;
 	const email = formData.email.value;
