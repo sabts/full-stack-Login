@@ -7,15 +7,17 @@ import { AuthContext } from '../../lib/context/AuthContext';
 
 const Profile = () => {
 	const { user, setUser } = useContext(AuthContext);
+	const [nameInput, setNameInput] = useState(user?.name || '');
 	const [isEditing, setIsEditing] = useState(false);
 	const navigate = useNavigate();
 
-	if (!user) {
+	useEffect(() => {
+		if (user) setNameInput(user.name);
+	  }, [user]);
+	
+	  if (!user) {
 		return <h2>No User</h2>;
-	}
-
-	const { email, userName } = user;
-
+	  }
 	return (
 		<>
 			<Link to='/'>
@@ -43,11 +45,14 @@ const Profile = () => {
 								<input
 									type='text'
 									id='name'
-									name='userName'
-									defaultValue={user.name}
+									name='name'
+									defaultValue={nameInput}
+									onChange={e => setNameInput(e.target.value)}
 								/>
 							</div>
-							<input type='submit' value='GUARDAR CAMBIOS' />
+							<input type='submit' value='GUARDAR CAMBIOS'
+							onClick={(event)=>updateUser(id)}
+							 />
 						</form>
 						<button onClick={() => setIsEditing(false)}>CANCELAR</button>
 					</>
@@ -57,16 +62,16 @@ const Profile = () => {
 	);
 };
 
-const updateUser = async (id, event, setUser, setIsEditing) => {
+const updateUser = async (id, event) => {
 	event.preventDefault();
 	const form = event.target;
 
 	const body = {
-		name: form.userName.value
+		name: form.name.value
 	};
 
 	const userUpdated = await updateDataById(id, body);
-	setUser(userUpdated);
+	setUser(userUpdated); 
 	setIsEditing(false);
 };
 

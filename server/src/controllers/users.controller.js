@@ -37,15 +37,13 @@ usersController.createUser = async (req, res) => {
 
 usersController.updateUser = async (req, res) => {
   const { id } = req.params;
-  // const newData = req.body;
 
   try {
-    await UserModel.updateOne({ _id: id }, { $set: { ...req.body } });
-    const allUser = await UserModel.find();
-    res.status(200).send(allUser);
+    await UserModel.updateOne({ uid: id }, { $set: { ...req.body } });
+    const updatedUser = await UserModel.findOne({ uid: id });
+    res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(404).send({ message: "Error uptdating user" + error });
+    res.status(500).json({ message: "Error updating user: " + error });
   }
 };
-
 module.exports = usersController;
