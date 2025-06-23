@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
 			if (user) {
-				//console.log('_ID DE moNGO:', user.uid);
+				console.log('_ID DE moNGO:', user.uid);
 				getUserInMongoDB(user.uid, setUser);
 			} else {
 				setUser(null);

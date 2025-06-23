@@ -3,7 +3,7 @@ import { AuthContext } from "../../lib/context/AuthContext";
 
 const Profile = () => {
 	const { user } = useContext(AuthContext)
-	console (user)
+	//console (user)
 	return (
 		<>
 		<div>
@@ -18,3 +18,5 @@ const Profile = () => {
 		</>
 	);
 };
+
+export default Profile

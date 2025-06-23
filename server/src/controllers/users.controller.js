@@ -18,6 +18,7 @@ usersController.getUserById = async (req, res) => {
     if (!userFound) {
       res.status(404).send({ message: "User not found" });
     }
+    return res.status(200).json(userFound);
   } catch (error) {
     res.status(500).send({ message: "Error gettin user Id" + error });
   }
