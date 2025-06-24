@@ -12,6 +12,7 @@ import {
 	StyledPhoto,
 	StyledUserProfile
 } from './profile-styles';
+import { updateDataById } from '../../lib/utils/api';
 
 const Profile = () => {
 	const { user, setUser } = useContext(AuthContext);
@@ -44,7 +45,7 @@ const Profile = () => {
 					</>
 				) : (
 					<>
-						<StyledEdtUserProfile onSubmit={(e) => updateUser(user.uid, e)}>
+						<StyledEdtUserProfile onSubmit={(e) => updateUser(user.uid, setUser, e,  setIsEditing)}>
 							<StyledPhoto />
 							<StyledFieldDiv>
 								<label htmlFor='name'>Nombre</label>
@@ -73,7 +74,7 @@ const logout = async navigate => {
 	navigate('/');
 };
 
-const updateUser = async (id, event) => {
+const updateUser = async (id, setUser, event,  setIsEditing) => {
 	event.preventDefault();
 	const form = event.target;
 

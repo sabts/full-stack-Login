@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { auth } from '../config/firebase.config';
-import { getDataById, updateDataById } from '../utils/api';
+import { getDataById} from '../utils/api';
 
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
