@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../lib/context/AuthContext';
+import { StyledMainContainer } from './menu-styles';
 
 const Menu = () => {
 	const { user } = useContext(AuthContext);
 
 	return (
-		<>
+		<StyledMainContainer>
 			<Link to='/'>
 				<h1>Home</h1>
 			</Link>
@@ -28,12 +29,12 @@ const Menu = () => {
 				<nav>
 					<ul>
 						<li>
-							<Link to="/profile">Profile</Link>
+							<Link to='/profile'>Profile</Link>
 						</li>
 					</ul>
 				</nav>
 			)}
-		</>
+		</StyledMainContainer>
 	);
 };
 

@@ -4,6 +4,7 @@ import { updateDataById } from '../../lib/utils/api';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../lib/config/firebase.config';
 import { AuthContext } from '../../lib/context/AuthContext';
+import { StyledMainContainer, StyledPhoto } from './profile-styles';
 
 const Profile = () => {
 	const { user, setUser } = useContext(AuthContext);
@@ -13,20 +14,20 @@ const Profile = () => {
 
 	useEffect(() => {
 		if (user) setNameInput(user.name);
-	  }, [user]);
-	
-	  if (!user) {
+	}, [user]);
+
+	if (!user) {
 		return <h2>No User</h2>;
-	  }
+	}
 	return (
-		<>
+		<StyledMainContainer>
 			<Link to='/'>
 				<button>back to users</button>
 			</Link>
 			<div>
 				{!isEditing ? (
 					<>
-						<div>foto</div>
+						<StyledPhoto />
 						<h2>{user.name}</h2>
 						<span>{user.email}</span>
 						<div>
@@ -39,7 +40,7 @@ const Profile = () => {
 						<form
 							onSubmit={event => updateUser(uid, event, setUser, setIsEditing)}
 						>
-							<div>foto</div>
+							<StyledPhoto />
 							<div>
 								<label htmlFor='name'>Nombre</label>
 								<input
@@ -50,15 +51,17 @@ const Profile = () => {
 									onChange={e => setNameInput(e.target.value)}
 								/>
 							</div>
-							<input type='submit' value='GUARDAR CAMBIOS'
-							onClick={(event)=>updateUser(id)}
-							 />
+							<input
+								type='submit'
+								value='GUARDAR CAMBIOS'
+								onClick={event => updateUser(id)}
+							/>
 						</form>
 						<button onClick={() => setIsEditing(false)}>CANCELAR</button>
 					</>
 				)}
 			</div>
-		</>
+		</StyledMainContainer>
 	);
 };
 
@@ -71,7 +74,7 @@ const updateUser = async (id, event) => {
 	};
 
 	const userUpdated = await updateDataById(id, body);
-	setUser(userUpdated); 
+	setUser(userUpdated);
 	setIsEditing(false);
 };
 
