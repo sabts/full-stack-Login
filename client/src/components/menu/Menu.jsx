@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../lib/context/AuthContext';
-import { StyledMainContainer } from './menu-styles';
+import { StyledMainContainer, StyledUl } from './menu-styles';
 
 const Menu = () => {
 	const { user } = useContext(AuthContext);
@@ -14,25 +14,25 @@ const Menu = () => {
 
 			{!user && (
 				<nav>
-					<ul>
+					<StyledUl>
 						<li>
 							<Link to='/login'>Login</Link>
 						</li>
 						<li>
 							<Link to='/register'>Register</Link>
 						</li>
-					</ul>
+					</StyledUl>
 				</nav>
 			)}
 
 			{user && (
-				<nav>
+				<StyledUl>
 					<ul>
 						<li>
 							<Link to='/profile'>Profile</Link>
 						</li>
 					</ul>
-				</nav>
+				</StyledUl>
 			)}
 		</StyledMainContainer>
 	);

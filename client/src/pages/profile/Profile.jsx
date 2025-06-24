@@ -1,10 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { updateDataById } from '../../lib/utils/api';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../lib/config/firebase.config';
 import { AuthContext } from '../../lib/context/AuthContext';
-import { StyledMainContainer, StyledPhoto } from './profile-styles';
+import {
+	StyledBackButton,
+	StyledButtonsContainer,
+	StyledEdtUserProfile,
+	StyledFieldDiv,
+	StyledMainContainer,
+	StyledPhoto,
+	StyledUserProfile
+} from './profile-styles';
 
 const Profile = () => {
 	const { user, setUser } = useContext(AuthContext);
@@ -22,9 +29,9 @@ const Profile = () => {
 	return (
 		<StyledMainContainer>
 			<Link to='/'>
-				<button>back to users</button>
+				<StyledBackButton>back to users</StyledBackButton>
 			</Link>
-			<div>
+			<StyledUserProfile>
 				{!isEditing ? (
 					<>
 						<StyledPhoto />
@@ -37,11 +44,9 @@ const Profile = () => {
 					</>
 				) : (
 					<>
-						<form
-							onSubmit={event => updateUser(uid, event, setUser, setIsEditing)}
-						>
+						<StyledEdtUserProfile>
 							<StyledPhoto />
-							<div>
+							<StyledFieldDiv>
 								<label htmlFor='name'>Nombre</label>
 								<input
 									type='text'
@@ -50,32 +55,17 @@ const Profile = () => {
 									defaultValue={nameInput}
 									onChange={e => setNameInput(e.target.value)}
 								/>
-							</div>
-							<input
-								type='submit'
-								value='GUARDAR CAMBIOS'
-								onClick={event => updateUser(id)}
-							/>
-						</form>
-						<button onClick={() => setIsEditing(false)}>CANCELAR</button>
+							</StyledFieldDiv>
+							<StyledButtonsContainer>
+								<input type='submit' value='SAVE CHANGES' />
+								<button onClick={() => setIsEditing(false)}>CANCEL</button>
+							</StyledButtonsContainer>
+						</StyledEdtUserProfile>
 					</>
 				)}
-			</div>
+			</StyledUserProfile>
 		</StyledMainContainer>
 	);
-};
-
-const updateUser = async (id, event) => {
-	event.preventDefault();
-	const form = event.target;
-
-	const body = {
-		name: form.name.value
-	};
-
-	const userUpdated = await updateDataById(id, body);
-	setUser(userUpdated);
-	setIsEditing(false);
 };
 
 const logout = async navigate => {

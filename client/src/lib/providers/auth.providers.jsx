@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
 			if (user) {
 				console.log('_ID DE moNGO:', user.uid);
 				getUserInMongoDB(user.uid, setUser);
-				updateUser(user.uid);
+				updateUser(user._id, event);
 			} else {
 				setUser(null);
 			}
@@ -38,7 +38,7 @@ const getUserInMongoDB = async (uid, setUser) => {
 	setUser(user);
 };
 
-const updateUser = async id => {
+const updateUser = async (id, event) => {
 	event.preventDefault();
 	const form = event.target;
 

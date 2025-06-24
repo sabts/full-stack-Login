@@ -6,4 +6,10 @@ const StyledMainContainer = styled.section`
 	padding-inline: 2rem;
 	border-bottom: 1px solid gray;
 `;
-export { StyledMainContainer };
+
+const StyledUl = styled.ul`
+	display: flex;
+	gap: 2rem;
+`;
+
+export { StyledMainContainer, StyledUl };
