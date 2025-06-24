@@ -44,7 +44,7 @@ const Profile = () => {
 					</>
 				) : (
 					<>
-						<StyledEdtUserProfile>
+						<StyledEdtUserProfile onSubmit={(e) => updateUser(user.uid, e)}>
 							<StyledPhoto />
 							<StyledFieldDiv>
 								<label htmlFor='name'>Nombre</label>
@@ -71,5 +71,18 @@ const Profile = () => {
 const logout = async navigate => {
 	await signOut(auth);
 	navigate('/');
+};
+
+const updateUser = async (id, event) => {
+	event.preventDefault();
+	const form = event.target;
+
+	const body = {
+		name: form.name.value
+	};
+
+	const userUpdated = await updateDataById(id, body);
+	setUser(userUpdated);
+	setIsEditing(false);
 };
 export default Profile;
